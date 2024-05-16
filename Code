@@ -1,0 +1,291 @@
+CREATE DATABASE library;
+USE library;
+
+# creation of table Branch
+CREATE TABLE Branch(
+	Branch_no INT PRIMARY KEY,
+    Manager_id INT,
+    Branch_address VARCHAR(100),
+    Contact_no int
+    );
+
+
+# adding values to table branch
+INSERT INTO Branch (Branch_no, Manager_id, Branch_address, Contact_no)
+VALUES
+    (3808, 01, 'Skill Park', 5584928),
+    (3809, 02, 'Palace Street', 5554321),
+    (3810, 03, 'Avenue Plaza', 5559876),
+    (3811, 04, 'Oak Lane', 5552468),
+    (3812, 05, 'Valley Street', 5551357),
+    (3813, 06, 'Maple Street', 5558642),
+    (3814, 07, 'Lotus Palace', 5557531),
+    (3815, 08, 'Heavenly Lane', 5554680),
+    (3816, 09, 'Pine Homes', 5551593),
+    (3817, 10, 'Jane Road', 5550246);
+
+# display table branch
+SELECT * FROM Branch;
+
+# creation of table employee
+CREATE TABLE Employee(
+	Emp_id INT PRIMARY KEY,
+    Emp_name VARCHAR(50),
+    Position VARCHAR(20),
+    Salary INT,
+    Branch_no INT,
+    FOREIGN KEY(Branch_no) REFERENCES Branch(Branch_no) ON DELETE CASCADE
+    );
+    
+# adding values to table employee
+INSERT INTO Employee (Emp_id, Emp_name, Position, Salary, Branch_no)
+VALUES
+    (1001, 'Taylor Swift', 'Manager', 80000, 3809),
+    (1002, 'Justin Paul', 'Assistant Manager', 60000, 3816),
+    (1003, 'Alexa Wilson', 'Clerk', 40000, 3816),
+    (1004, 'Niara Brown', 'Manager', 70000, 3808),
+    (1005, 'Ema Vincent', 'Cleaning', 30000, 3816),
+    (1006, 'Leon Paul', 'Librarian', 40000, 3816),
+    (1007, 'Elsa Thomas', 'Assistant Manager', 650000, 3810),
+    (1008, 'Liya Mikael', 'Clerk', 40000, 3816),
+    (1009, 'Zera Elizabeth', 'Clerk', 40000, 3815),
+    (1010, 'Kiara Advani', 'Clerk', 40000, 3816);
+    
+# displays table employee
+SELECT * FROM Employee;
+    
+# creation of table Books    
+CREATE TABLE Books(
+	ISBN INT PRIMARY KEY,
+	Book_title VARCHAR(50),
+	Category VARCHAR(25),
+	Rental_price INT,
+	Status_ VARCHAR(20),
+    Author VARCHAR(25),
+	Publisher VARCHAR(25));
+    
+# adding values to table Books    
+INSERT INTO Books (ISBN, Book_title, Category, Rental_price, Status_, Author, Publisher)
+VALUES
+    (71612345, 'The Revolution 2020', 'Fiction', 25, 'Available', 'Chetan Bagath', 'Rupa Publishers'),
+    (71698765, 'The Exorcist', 'Horror', 10, 'Reserved', 'William Peter Blatty', 'Harper & Row'),
+    (71624680, 'Lost Treasure', 'Adventure', 15, 'Available', 'Jan Stradling', 'Walker Books'),
+    (71613579, 'The Secret', 'Mystery', 29, 'Reserved', 'Rhonda Byrne', 'Atria Books'),
+    (71686420, 'House of Leaves', 'Horror', 11, 'Available', 'Mark Z Danielewski', 'Pantheon Books'),
+    (71697531, 'Gullivers Travels', 'Satire', 27, 'Reserved', 'Jonathan Swift', 'Benjamin Motte'),
+    (71675309, 'Quest for Atlantis', 'History', 33, 'Available', 'Olivia Green', 'Press Club'),
+    (71646802, 'Cryptic Clues', 'Mystery', 20, 'Reserved', 'Michael Adams', 'Valley Books'),
+    (71615937, 'Secret Passage', 'Adventure', 31, 'Available', 'Sophia Martinez', 'DC Publishers'),
+    (71602468, 'Puzzle Manor', 'Mystery', 33, 'Reserved', 'William Turner', 'Pleater Books');
+
+# displays table Books
+select * from Books; 
+    
+
+# creation of table Customer
+CREATE TABLE Customer(
+	Customer_id INT PRIMARY KEY,
+    Customer_name VARCHAR(50),
+    Customer_address VARCHAR(100),
+    Reg_date DATE
+    );
+    
+# adding values to table Customer
+INSERT INTO Customer (Customer_id, Customer_name, Customer_address, Reg_date)
+VALUES
+    (71, 'Alia Bhatt', 'XYZ Road', '2021-05-11'),
+    (72, 'Deepika', 'Era Ave', '2024-05-12'),
+    (73, 'Kriti Sonan', 'Oak Lane', '2020-05-13'),
+    (74, 'Kajal', 'Pine Farm Street', '2021-05-14'),
+    (75, 'Ema Jackson', 'Heaven Street', '2023-05-15'),
+    (76, 'Urvashi', 'Valley Lane', '2023-05-16'),
+    (77, 'Katrina Kaif', 'Willow Ave', '2019-05-17'),
+    (78, 'Kareena Kapoor', 'Church Road', '2023-05-18'),
+    (79, 'Isa Tulip', 'Oak Street', '2022-05-19'),
+    (80, 'Julie Margeret', 'Maple Lane', '2023-05-20');
+
+# displays table Customer
+SELECT * FROM Customer;    
+
+# creation of table IssueStatus    
+CREATE TABLE IssueStatus(
+	Issue_id INT PRIMARY KEY,
+	Issued_cust INT,
+    FOREIGN KEY(Issued_cust) REFERENCES Customer(Customer_id) ON DELETE CASCADE,
+    Issue_date DATE,
+    Isbn_book INT,
+    FOREIGN KEY(Isbn_book) REFERENCES Books(ISBN) ON DELETE CASCADE
+    );
+    
+# adding values to table IssueStatus
+INSERT INTO IssueStatus (Issue_id, Issued_cust, Issue_date, Isbn_book)
+VALUES
+    (1, 71, '2023-06-11', 71686420),
+    (2, 72, '2022-05-12', 71602468),
+    (3, 73, '2023-05-13', 71686420),
+    (4, 74, '2023-06-14', 71615937),
+    (5, 75, '2021-04-15', 71646802),
+    (6, 71, '2023-05-16', 71686420),
+    (7, 76, '2023-06-17', 71613579),
+    (8, 72, '2023-05-18', 71686420),
+    (9, 79, '2021-07-19', 71613579),
+    (10, 80,'2019-09-20', 71697531);
+    
+# displays table IssueStatus    
+SELECT * FROM IssueStatus; 
+
+# creation of table ReturnStatus     
+CREATE TABLE ReturnStatus(
+	Return_Id INT PRIMARY KEY,
+    Return_cust VARCHAR(50),
+    Return_book_name VARCHAR(50),
+    Return_date DATE,
+    Isbn_book2 INT,
+    FOREIGN KEY(Isbn_book2) REFERENCES Books(ISBN) ON DELETE CASCADE
+    );
+    
+# Adding values to table ReturnStatus
+INSERT INTO ReturnStatus (Return_Id, Return_cust, Return_book_name, Return_date, Isbn_book2)
+VALUES
+    (11, 'Alia Bhatt', 'House of Leaves', '2023-09-11', 71686420),
+    (21, 'Deepika', 'Puzzle Manor', '2023-01-12', 71602468),
+    (31, 'Kriti Sonan', 'House of Leaves', '2023-07-13', 71686420),
+    (41, 'Kajal', 'Secret Passage', '2023-10-14', 71615937),
+    (51, 'Ema Jackson', 'Cryptic Clues', '2022-01-15', 71646802),
+    (61, 'Alia Bhatt', 'House of Leaves', '2023-06-16', 71686420),
+    (71, 'Urvashi', 'The Secret', '2023-08-17', 71613579),
+    (81, 'Deepika', 'Cryptic Clues', '2023-11-18', 71686420),
+    (91, 'Isa Tulip', 'The Secret', '2021-08-19', 71613579),
+    (101, 'Julie Margeret', 'Puzzle Manor', '2020-05-20', 71697531);
+
+# displays table ReturnStatus
+SELECT * FROM ReturnStatus;
+
+-- 1. Retrieve the book title, category, and rental price of all available books
+SELECT
+  Book_title,
+  Category,
+  Rental_Price
+FROM
+  Books
+WHERE
+  Status_ = 'Available';
+  
+  -- 2. List the employee names and their respective salaries in descending order of salary
+SELECT
+  Emp_name,
+  Salary
+FROM
+  Employee
+ORDER BY
+  Salary DESC;
+  
+  -- 3. Retrieve the book titles and the corresponding customers who have issued those books
+SELECT
+  b.Book_title,
+  c.Customer_name
+FROM
+  IssueStatus i
+  JOIN Books b ON i.Isbn_book = b.ISBN
+  JOIN Customer c ON i.Issued_cust = c.Customer_Id;
+  
+  -- 4. Display the total count of books in each category
+SELECT
+  Category,
+  COUNT(*) AS Total_Count
+FROM
+  Books
+GROUP BY
+  Category;
+
+
+
+-- 5. Retrieve the employee names and their positions for the employees whose salaries are above Rs.50,000
+SELECT
+  Emp_name,
+  Position
+FROM
+  Employee
+WHERE
+  Salary > 50000;
+  
+  
+  -- 6. List the customer names who registered before 2022-01-01 and have not issued any books yet
+SELECT
+  Customer_name
+FROM
+  Customer
+WHERE
+  Reg_date < '2022-01-01'
+  AND Customer_Id NOT IN (
+    SELECT
+      Issued_cust
+    FROM
+      IssueStatus
+  );
+  
+  
+  
+  -- 7. Display the branch numbers and the total count of employees in each branch
+SELECT
+  Branch_no,
+  COUNT(*) AS Total_Employees
+FROM
+  Employee
+GROUP BY
+  Branch_no;
+  
+  
+  -- 8. Display the names of customers who have issued books in the month of June 2023
+SELECT
+  c.Customer_name
+FROM
+  IssueStatus i
+  JOIN Customer c ON i.Issued_cust = c.Customer_Id
+WHERE
+  MONTH (Issue_date) = 6
+  AND YEAR (Issue_date) = 2023;
+  
+  
+  -- 9. Retrieve book_title from book table containing history
+SELECT
+  Book_title
+FROM
+  Books
+WHERE
+  Category = 'History';
+  
+  
+# 10. Retrieve the branch numbers along with the count of employees for branches having more than 5 employees
+SELECT
+  Branch_no,
+  COUNT(*) AS Total_Employees
+FROM
+  Employee
+GROUP BY
+  Branch_no
+HAVING
+  COUNT(*) > 5;
+  
+  
+  
+  -- 11. Retrieve the names of employees who manage branches and their respective branch addresses
+SELECT
+  e.Emp_name,
+  b.Branch_address
+FROM
+  Employee e
+  JOIN Branch b ON e.Branch_no = b.Branch_no
+WHERE
+  e.Position = 'Manager';
+  
+  
+  -- 12. Display the names of customers who have issued books with a rental price higher than Rs. 25
+SELECT
+  c.Customer_name
+FROM
+  IssueStatus i
+  JOIN Customer c ON i.Issued_cust = c.Customer_Id
+  JOIN Books b ON i.Isbn_book = b.ISBN
+WHERE
+  b.Rental_Price > 25;
