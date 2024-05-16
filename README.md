@@ -1,6 +1,6 @@
-Library System Management
+Library Management System
 
-This repository is created for Library System Management.
+This repository is created for Library Management System.
 
 The database is named "library", and it consists of six tables: Branch, Employee, Books, Customer, IssueStatus, and ReturnStatus.
 
